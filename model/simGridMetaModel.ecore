@@ -4,16 +4,6 @@
   <eAnnotations xmi:id="_XZ1eQc7gEeeLcIicqHdTUQ" source="genmymodel">
     <details xmi:id="_XZ1eQs7gEeeLcIicqHdTUQ" key="uuid" value="_KVw9QM7bEeeLcIicqHdTUQ"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" xmi:id="_XZ1eQ87gEeeLcIicqHdTUQ" name="Process">
-    <eAnnotations xmi:id="_XZ1eRM7gEeeLcIicqHdTUQ" source="genmymodel">
-      <details xmi:id="_XZ1eRc7gEeeLcIicqHdTUQ" key="uuid" value="_LcT30LEJEDW2UZafuURsnA"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" xmi:id="_XZ1eRs7gEeeLcIicqHdTUQ" name="Task">
-    <eAnnotations xmi:id="_XZ1eR87gEeeLcIicqHdTUQ" source="genmymodel">
-      <details xmi:id="_XZ1eSM7gEeeLcIicqHdTUQ" key="uuid" value="_Nc7rwLEJEDW2UZafuURsnA"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RoutingModel">
     <eLiterals name="Full" literal="Full"/>
     <eLiterals name="Floyd" value="1"/>
@@ -67,6 +57,22 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="storage" lowerBound="1"
         eType="#//Storage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Argument">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessOrActor" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="argument" upperBound="-1"
+        eType="#//Argument" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="host" lowerBound="1" eType="#_XZ1eZ87gEeeLcIicqHdTUQ"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="function" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="start_time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kill_time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="on_failure" eType="#//FailureType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="FailureType">
+    <eLiterals name="DIE"/>
+    <eLiterals name="RESTART" value="1"/>
   </eClassifiers>
   <eSubpackages xmi:id="_XZ1eSc7gEeeLcIicqHdTUQ" name="topology">
     <eAnnotations xmi:id="_XZ1eSs7gEeeLcIicqHdTUQ" source="genmymodel">
@@ -499,6 +505,10 @@
           eType="#//topology/Configuration" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="as" lowerBound="1" eType="#_XZ1eTM7gEeeLcIicqHdTUQ"
           containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actor" upperBound="-1"
+          eType="#//ProcessOrActor" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="process" upperBound="-1"
+          eType="#//ProcessOrActor" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Configuration">
       <eStructuralFeatures xsi:type="ecore:EReference" name="props" lowerBound="1"
